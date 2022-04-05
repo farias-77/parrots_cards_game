@@ -40,8 +40,6 @@ body {
     border: 1px solid #99CEA8;
     border-radius: 5px;
     position: relative;
-
-    margin: 15px 6px;
 }
 
 .carta-atras img{
@@ -52,7 +50,7 @@ body {
 }
 
 .jogo{
-    width: 880px;
+    background-color: red;
 
     display: flex;
     flex-wrap: wrap;
