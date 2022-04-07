@@ -1,10 +1,9 @@
 //Define número de cartas no jogo
-//const numCartas = Number(prompt("Insira o número de cartas (min: 4, max: 14)")); 
-let numCartas = 4;
+let numCartas = Number(prompt("Insira o número de cartas (min: 4, max: 14)")); 
 const variacoesCarta = numCartas/2;
 
-while(((numCartas <= 14 && numCartas < 4) || (numCartas >= 4 && numCartas > 14)) || numCartas % 2 !== 0 ){
-    //numCartas = Number(prompt("Insira o número de cartas (min: 4, max: 14)"));
+while(numCartas < 4 || numCartas > 14 || numCartas % 2 !== 0 ){
+    numCartas = Number(prompt("Insira o número de cartas (min: 4, max: 14)"));
 }
 
 //Array com as variações de carta
@@ -35,30 +34,51 @@ function comparador() {
 
 //Exibe cartas
 for(let j = 0; j < numCartas; j++){
-    jogo.innerHTML+=`<div class='carta'>
-    <div class='frente face' onclick='viraCarta(this)'>
+    jogo.innerHTML+=`<div class='carta' onclick='realizaJogada(this)'>
+    <div class='frente face'>
         <img src='/Arquivos Úteis/front.png'/>
     </div>
-    <div class='verso face'  onclick='viraCarta(this)'>
+    <div class='verso face'>
         ${cartasJogo[j]}
     </div>
 </div>` 
 }
 
-//Vira carta
-function viraCarta(elemento){
-    if(elemento.classList.contains("frente")){
-        mostraVerso(elemento.parentNode);
+function realizaJogada(elemento){
+    
+    let cartaAnterior = document.querySelector(".verso.exibeVerso");
+    if(cartaAnterior != null){
+        //segunda carta da rodada
+        viraCarta(elemento);
+        verificaIguais();
     }else{
-        mostraFrente(elemento.parentNode);
+        //primeira carta da rodada
+        viraCarta(elemento);
     }
 }
 
-function mostraVerso(elemento){
+function viraCarta(elemento){
     elemento.querySelector(".verso").classList.add("exibeVerso");
     elemento.querySelector(".frente").classList.add("escondeFrente");
 }
-function mostraFrente(elemento){
+function retornaCarta(elemento){
     elemento.querySelector(".verso").classList.remove("exibeVerso");
     elemento.querySelector(".frente").classList.remove("escondeFrente");
+}
+
+function verificaIguais(){
+
+    let cartasViradas = document.querySelectorAll(".verso.exibeVerso");
+
+    if(cartasViradas[0].innerHTML == cartasViradas[1].innerHTML){
+        //trocaClasses(cartasViradas);
+    }else{
+        setTimeout(retornaCartas, 1000)        
+    }
+}
+
+function retornaCartas(){
+    let cartasViradas = document.querySelectorAll(".verso.exibeVerso");
+    retornaCarta(cartasViradas[0].parentNode);
+    retornaCarta(cartasViradas[1].parentNode);
 }

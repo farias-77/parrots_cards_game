@@ -79,26 +79,10 @@ body {
     transform: rotateY(180deg);
   }
 
-  .exibeVerso {
+  .exibeVerso, .parEncontrado {
     transform: rotateY(0deg);
   }
 
   .escondeFrente {
     transform: rotateY(-180deg);
   }
-
-  .escondeVerso{
-      transform: rotateY(-180deg)
-  }
-
-  .exibeFrente{
-    transform: rotateY(180deg);
-}
-
-/*.carta:hover .verso {
-    transform: rotateY(0deg);
-  }
-
-  .carta:hover .frente {
-    transform: rotateY(-180deg);
-  }*/
