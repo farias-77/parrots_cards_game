@@ -61,6 +61,7 @@ function viraCarta(elemento){
     elemento.querySelector(".verso").classList.add("exibeVerso");
     elemento.querySelector(".frente").classList.add("escondeFrente");
 }
+
 function retornaCarta(elemento){
     elemento.querySelector(".verso").classList.remove("exibeVerso");
     elemento.querySelector(".frente").classList.remove("escondeFrente");
@@ -68,10 +69,10 @@ function retornaCarta(elemento){
 
 function verificaIguais(){
 
-    let cartasViradas = document.querySelectorAll(".verso.exibeVerso");
+    let cartasViradas = document.querySelectorAll(".verso.exibeVerso");   
 
     if(cartasViradas[0].innerHTML == cartasViradas[1].innerHTML){
-        //trocaClasses(cartasViradas);
+        alteraClasse(cartasViradas)
     }else{
         setTimeout(retornaCartas, 1000)        
     }
@@ -81,4 +82,11 @@ function retornaCartas(){
     let cartasViradas = document.querySelectorAll(".verso.exibeVerso");
     retornaCarta(cartasViradas[0].parentNode);
     retornaCarta(cartasViradas[1].parentNode);
+}
+
+function alteraClasse(arrayIguais){
+    arrayIguais[0].classList.add("parEncontrado");
+    arrayIguais[0].classList.remove("exibeVerso");
+    arrayIguais[1].classList.add("parEncontrado");
+    arrayIguais[1].classList.remove("exibeVerso");
 }
