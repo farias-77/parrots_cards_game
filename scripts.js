@@ -1,10 +1,13 @@
+//Variáveis globais
+let contadorJogadas = 0;
+
 //Define número de cartas no jogo
 let numCartas = Number(prompt("Insira o número de cartas (min: 4, max: 14)")); 
-const variacoesCarta = numCartas/2;
 
 while(numCartas < 4 || numCartas > 14 || numCartas % 2 !== 0 ){
     numCartas = Number(prompt("Insira o número de cartas (min: 4, max: 14)"));
 }
+let variacoesCarta = numCartas/2;
 
 //Array com as variações de carta
 let gifs = [];
@@ -55,11 +58,15 @@ function realizaJogada(elemento){
         //primeira carta da rodada
         viraCarta(elemento);
     }
+
+    setTimeout(verificaFim, 1000);
 }
 
 function viraCarta(elemento){
     elemento.querySelector(".verso").classList.add("exibeVerso");
     elemento.querySelector(".frente").classList.add("escondeFrente");
+
+    contadorJogadas++;
 }
 
 function retornaCarta(elemento){
@@ -89,4 +96,11 @@ function alteraClasse(arrayIguais){
     arrayIguais[0].classList.remove("exibeVerso");
     arrayIguais[1].classList.add("parEncontrado");
     arrayIguais[1].classList.remove("exibeVerso");
+}
+
+function verificaFim(){
+    let paresEncontrados = jogo.querySelectorAll(".verso.parEncontrado");
+    if(paresEncontrados.length === numCartas){
+        alert(`Você ganhou em ${contadorJogadas} jogadas!`);
+    }
 }
