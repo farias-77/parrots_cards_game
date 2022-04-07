@@ -112,10 +112,11 @@ function verificaFim(){
         let reiniciaJogo = perguntaReinicia();
         if(reiniciaJogo){
             //Reseta numero de jogadas e limpa cartas da partida anterior antes de reiniciar o jogo
-            resetaJogo();
+            resetaJogo(false);
             iniciarJogo();
         }else{
             alert("Até a próxima!");
+            resetaJogo(true);
         }
 
     }
@@ -135,7 +136,7 @@ function perguntaReinicia(){
     }
 }
 
-function resetaJogo(){
+function resetaJogo(exibeBotao){
     contadorJogadas = 0;
 
     let cartasAnteriores = document.querySelectorAll(".parEncontrado");
@@ -143,4 +144,9 @@ function resetaJogo(){
         cartasAnteriores[i].classList.remove("parEncontrado");
         cartasAnteriores[i].parentNode.classList.add("escondido");
     }
+
+    if(exibeBotao){
+        document.querySelector(".botaoIniciar").classList.remove("escondido");
+    }
+
 }
