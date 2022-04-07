@@ -1,43 +1,47 @@
 //Variáveis globais
 let contadorJogadas = 0;
-
-//Define número de cartas no jogo
-let numCartas = Number(prompt("Insira o número de cartas (min: 4, max: 14)")); 
-
-while(numCartas < 4 || numCartas > 14 || numCartas % 2 !== 0 ){
-    numCartas = Number(prompt("Insira o número de cartas (min: 4, max: 14)"));
-}
-let variacoesCarta = numCartas/2;
+let numCartas; 
+let variacoesCarta;
 
 //Array com as variações de carta
 let gifs = [];
-gifs.push("/Arquivos Úteis/bobrossparrot.gif")
-gifs.push("/Arquivos Úteis/explodyparrot.gif")
-gifs.push("/Arquivos Úteis/fiestaparrot.gif")
-gifs.push("/Arquivos Úteis/metalparrot.gif")
-gifs.push("/Arquivos Úteis/revertitparrot.gif")
-gifs.push("/Arquivos Úteis/tripletsparrot.gif")
-gifs.push("/Arquivos Úteis/unicornparrot.gif")
+gifs.push("/Arquivos Úteis/bobrossparrot.gif");
+gifs.push("/Arquivos Úteis/explodyparrot.gif");
+gifs.push("/Arquivos Úteis/fiestaparrot.gif");
+gifs.push("/Arquivos Úteis/metalparrot.gif");
+gifs.push("/Arquivos Úteis/revertitparrot.gif");
+gifs.push("/Arquivos Úteis/tripletsparrot.gif");
+gifs.push("/Arquivos Úteis/unicornparrot.gif");
 
-//Array array com as cartas do jogo
-let cartasJogo = []
 
-//Insere cartas no array do jogo
-let jogo = document.querySelector(".jogo");
-for(let i = 0; i < variacoesCarta; i++){
-    cartasJogo.push(`<img src='${gifs[i]}'/>`);
-    cartasJogo.push(`<img src='${gifs[i]}'/>`);
-}
+function iniciarJogo(){
 
-//Embaralha cartas do jogo
-cartasJogo.sort(comparador);
-function comparador() { 
-	return Math.random() - 0.5; 
-}
+    //Esconde o botão
+    document.querySelector(".botaoIniciar").classList.add("escondido");
+    
+    //Define o número de cartas do jogo entre 4 e 14 (recusa ímpar)
+    numCartas = Number(prompt("Insira o número de cartas (min: 4, max: 14)"));
+    while(numCartas < 4 || numCartas > 14 || numCartas % 2 !== 0 ){
+        numCartas = Number(prompt("Insira o número de cartas (min: 4, max: 14)"));
+    }
+    variacoesCarta = numCartas/2;
 
-//Exibe cartas
-for(let j = 0; j < numCartas; j++){
-    jogo.innerHTML+=`<div class='carta' onclick='realizaJogada(this)'>
+    //Array com as cartas que serão utilizadas no jogo
+    let cartasJogo = [];
+
+    //Insere cartas no array do jogo
+    let divjogo = document.querySelector(".jogo");
+    for(let i = 0; i < variacoesCarta; i++){
+        cartasJogo.push(`<img src='${gifs[i]}'/>`);
+        cartasJogo.push(`<img src='${gifs[i]}'/>`);
+    }
+
+    //Embaralha cartas do jogo
+    cartasJogo.sort(comparador);
+    
+    //Exibe cartas
+    for(let j = 0; j < numCartas; j++){
+        divjogo.innerHTML+=`<div class='carta' onclick='realizaJogada(this)'>
     <div class='frente face'>
         <img src='/Arquivos Úteis/front.png'/>
     </div>
@@ -45,6 +49,9 @@ for(let j = 0; j < numCartas; j++){
         ${cartasJogo[j]}
     </div>
 </div>` 
+    }
+
+
 }
 
 function realizaJogada(elemento){
@@ -54,12 +61,11 @@ function realizaJogada(elemento){
         //segunda carta da rodada
         viraCarta(elemento);
         verificaIguais();
+        setTimeout(verificaFim, 1000);
     }else{
         //primeira carta da rodada
         viraCarta(elemento);
     }
-
-    setTimeout(verificaFim, 1000);
 }
 
 function viraCarta(elemento){
@@ -99,8 +105,42 @@ function alteraClasse(arrayIguais){
 }
 
 function verificaFim(){
-    let paresEncontrados = jogo.querySelectorAll(".verso.parEncontrado");
+    let paresEncontrados = document.querySelectorAll(".verso.parEncontrado");
     if(paresEncontrados.length === numCartas){
         alert(`Você ganhou em ${contadorJogadas} jogadas!`);
+        
+        let reiniciaJogo = perguntaReinicia();
+        if(reiniciaJogo){
+            //Reseta numero de jogadas e limpa cartas da partida anterior antes de reiniciar o jogo
+            resetaJogo();
+            iniciarJogo();
+        }else{
+            alert("Até a próxima!");
+        }
+
+    }
+}
+
+function comparador() { 
+    return Math.random() - 0.5; 
+}
+
+function perguntaReinicia(){
+    let resposta = prompt("Gostaria de reiniciar o jogo?");
+
+    if(resposta === "sim"){
+        return true;
+    }else if(resposta === "não"){
+        return false;
+    }
+}
+
+function resetaJogo(){
+    contadorJogadas = 0;
+
+    let cartasAnteriores = document.querySelectorAll(".parEncontrado");
+    for(let i = 0; i < cartasAnteriores.length; i++){
+        cartasAnteriores[i].classList.remove("parEncontrado");
+        cartasAnteriores[i].parentNode.classList.add("escondido");
     }
 }
