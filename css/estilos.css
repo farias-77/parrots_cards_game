@@ -127,11 +127,34 @@ body {
     color: #75B79E;
 }
 
-/* quando atingir a largura do máximo de cartas em uma linha */
+/* apenas para o relógio ficar melhor posicionado ao reduzir a tela */
+@media (min-width: 873px) and (max-width: 1155px){
+    .titulo{
+        flex-direction: column;
+    }
+
+    .relogio{
+        position: initial;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+/* quando atingir a largura do máximo de cartas em uma linha (layout mobile)*/
 @media (max-width: 872px){
     .jogo {
         width: 100%;
         flex-direction: column;
         align-items: center;
+    }
+
+    .relogio{
+        position: initial;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .titulo{
+        flex-direction: column;
     }
 }
