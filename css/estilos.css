@@ -111,6 +111,22 @@ body {
     transform: rotateY(-180deg);
 }
 
+.relogio{
+    display: flex;
+    
+    position: fixed;
+    top: 60px;
+    right: 40px;
+}
+
+.relogio p{
+    font-size: 30px;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #75B79E;
+}
+
 /* quando atingir a largura do máximo de cartas em uma linha */
 @media (max-width: 872px){
     .jogo {

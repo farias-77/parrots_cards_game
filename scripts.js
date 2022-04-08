@@ -2,6 +2,8 @@
 let contadorJogadas = 0;
 let numCartas; 
 let variacoesCarta;
+let segundos = 0;
+let intervalId;
 
 //Array com as variações de carta
 let gifs = [];
@@ -51,6 +53,8 @@ function iniciarJogo(){
 </div>` 
     }
 
+    //Inicia cronômetro do jogo 
+    intervalId = setInterval(alteraRelogio, 1000);
 
 }
 
@@ -107,8 +111,9 @@ function alteraClasse(arrayIguais){
 function verificaFim(){
     let paresEncontrados = document.querySelectorAll(".verso.parEncontrado");
     if(paresEncontrados.length === numCartas){
-        alert(`Você ganhou em ${contadorJogadas} jogadas!`);
-        
+        clearInterval(intervalId);
+        alert(`Você ganhou com ${contadorJogadas} jogadas em ${segundos} segundos!`);
+
         let reiniciaJogo = perguntaReinicia();
         if(reiniciaJogo){
             //Reseta numero de jogadas e limpa cartas da partida anterior antes de reiniciar o jogo
@@ -127,7 +132,11 @@ function comparador() {
 }
 
 function perguntaReinicia(){
-    let resposta = prompt("Gostaria de reiniciar o jogo?");
+    let resposta = prompt("Reiniciar jogo? (sim /não)");
+
+    while(resposta !== "sim" && resposta !== "não"){
+        resposta = prompt("Reiniciar jogo? (sim /não)");
+    }
 
     if(resposta === "sim"){
         return true;
@@ -138,6 +147,7 @@ function perguntaReinicia(){
 
 function resetaJogo(exibeBotao){
     contadorJogadas = 0;
+    segundos = 0;
 
     let cartasAnteriores = document.querySelectorAll(".parEncontrado");
     for(let i = 0; i < cartasAnteriores.length; i++){
@@ -145,8 +155,18 @@ function resetaJogo(exibeBotao){
         cartasAnteriores[i].parentNode.classList.add("escondido");
     }
 
+    document.querySelector(".relogio p").innerHTML = "Tempo: 0 segundos";
+
     if(exibeBotao){
         document.querySelector(".botaoIniciar").classList.remove("escondido");
     }
 
+}
+
+function alteraRelogio(){
+    segundos++;
+    
+    const relogio = document.querySelector(".relogio p");
+    relogio.innerHTML = "";
+    relogio.innerHTML = `Tempo: ${segundos} segundos`
 }
