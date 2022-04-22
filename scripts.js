@@ -7,13 +7,13 @@ let intervalId;
 
 //Array com as variações de carta
 let gifs = [];
-gifs.push("/Arquivos Úteis/bobrossparrot.gif");
-gifs.push("/Arquivos Úteis/explodyparrot.gif");
-gifs.push("/Arquivos Úteis/fiestaparrot.gif");
-gifs.push("/Arquivos Úteis/metalparrot.gif");
-gifs.push("/Arquivos Úteis/revertitparrot.gif");
-gifs.push("/Arquivos Úteis/tripletsparrot.gif");
-gifs.push("/Arquivos Úteis/unicornparrot.gif");
+gifs.push("Arquivos Úteis/bobrossparrot.gif");
+gifs.push("Arquivos Úteis/explodyparrot.gif");
+gifs.push("Arquivos Úteis/fiestaparrot.gif");
+gifs.push("Arquivos Úteis/metalparrot.gif");
+gifs.push("Arquivos Úteis/revertitparrot.gif");
+gifs.push("Arquivos Úteis/tripletsparrot.gif");
+gifs.push("Arquivos Úteis/unicornparrot.gif");
 
 
 function iniciarJogo(){
@@ -45,7 +45,7 @@ function iniciarJogo(){
     for(let j = 0; j < numCartas; j++){
         divjogo.innerHTML+=`<div class='carta' onclick='realizaJogada(this)'>
     <div class='frente face'>
-        <img src='/Arquivos Úteis/front.png'/>
+        <img src='Arquivos Úteis/front.png'/>
     </div>
     <div class='verso face'>
         ${cartasJogo[j]}
